@@ -1,0 +1,616 @@
+{% extends 'base_all.html' %}
+{% block title %}Timeline {% endblock %}
+{% block head %}
+{% load staticfiles %}
+<link rel="shortcut icon" href="{%  static 'logo.png' %}">
+<style xmlns="http://www.w3.org/1999/html">
+   .uploader {
+   display: block;
+   clear: both;
+   margin: 0 auto;
+   width: 100%;
+   max-width: 600px;
+   label {
+   float: left;
+   clear: both;
+   width: 100%;
+   padding: 2rem 1.5rem;
+   text-align: center;
+   background: #fff;
+   border-radius: 7px;
+   border: 3px solid #eee;
+   transition: all .2s ease;
+   user-select: none;
+   &:hover {
+   border-color: $theme;
+   }
+   &.hover {
+   border: 3px solid $theme;
+   box-shadow: inset 0 0 0 6px #eee;
+   #start {
+   i.fa {
+   transform: scale(0.8);
+   opacity: 0.3;
+   }
+   }
+   }
+   }
+   #start {
+   float: left;
+   clear: both;
+   width: 100%;
+   &.hidden {
+   display: none;
+   }
+   i.fa {
+   font-size: 50px;
+   margin-bottom: 1rem;
+   transition: all .2s ease-in-out;
+   }
+   }
+   #response {
+   float: left;
+   clear: both;
+   width: 100%;
+   &.hidden {
+   display: none;
+   }
+   #messages {
+   margin-bottom: .5rem;
+   }
+   }
+   #file-image {
+   display: inline;
+   margin: 0 auto .5rem auto;
+   width: auto;
+   height: auto;
+   max-width: 180px;
+   &.hidden {
+   display: none;
+   }
+   }
+   #notimage {
+   display: block;
+   float: left;
+   clear: both;
+   width: 100%;
+   &.hidden {
+   display: none;
+   }
+   }
+   input[type=file] {
+   display: none;
+   }
+   div {
+   margin: 0 0 .5rem 0;
+   color: $dark-text;
+   }
+   .btn {
+   display: inline-block;
+   margin: .5rem .5rem 1rem .5rem;
+   clear: both;
+   font-family: inherit;
+   font-weight: 700;
+   font-size: 14px;
+   text-decoration: none;
+   text-transform: initial;
+   border: none;
+   border-radius: .2rem;
+   outline: none;
+   padding: 0 1rem;
+   height: 36px;
+   line-height: 36px;
+   color: #fff;
+   transition: all 0.2s ease-in-out;
+   box-sizing: border-box;
+   background: $theme;
+   border-color: $theme;
+   cursor: pointer;
+   }
+   }
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container">
+  {% if form.errors %}
+      {% for field in form %}
+          {% for error in field.errors %}
+              <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                  <strong>{{ field.label }}</strong>{{ error|escape }}
+              </div>
+          {% endfor %}
+      {% endfor %}
+  {% endif %}
+</div>
+<main>
+   <div class="col-sm-3"></div>
+   <div class="  col-sm-6">
+      <!--"style="border-right:1px indigo solid;border-left:1px indigo solid;"-->
+      <!--  {% if forms.errors %}
+         {% for field in forms %}
+         {% for error in field.errors %}
+         <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{ field.label }}</strong> {{ error|escape }}
+         </div>
+         {% endfor %}
+         {% endfor %}
+         {% endif %}
+         -->
+      <!--for timeline-->
+      
+      <div  class="row">
+         <div class="col s12">
+            <div class="card">
+               <div class="card-content">
+                  <div class="row center">
+                     <h4 class="red-text">Post Something here..</h4>
+                  </div>
+                  <hr>
+                  {% for field in form %}
+                  <form class="form" enctype="multipart/form-data" method="post">
+                     {% csrf_token %}
+                    {% load widget_tweaks %}
+                     {%  if field.html_name == "post_img" %}
+                     <div class="row center">
+                        <center>
+                           <div class="input-field col s12">
+                              <i  class="material-icons">camera_alt</i>
+                              {{ field|append_attr:"class:validate" }}
+                              {{ field.label_tag }}
+                           </div>
+                        </center>
+                     </div>
+                     {% elif field.html_name == "post_msg" %}
+                     <div class="row center">
+                        <div class="input-field col s12">
+                           {{ field|append_attr:"class:validate" }}
+                          {{ field.label_tag }}
+                        </div>
+                     </div>
+                     <div class="row center">
+                        <h6>Want to Schedule?</h6>
+                     </div>
+                     <div class="row ">
+                     {% elif field.html_name == "post_date" %}
+                     
+                        <div class="input-field col s6">
+                           {{ field|append_attr:"class:datepicker" }}
+                          {{ field.label_tag }}
+                        </div>
+                      {% elif field.html_name == "post_time" %}
+                        <div class="input-field col s6">
+                          {{ field|append_attr:"class:timepicker" }}
+                          {{ field.label_tag }}
+                          
+                        </div>
+                      {% endif %}
+                      {% endfor %}
+                     </div>
+                     <center>
+                        <button class="btn waves-effect green " type="submit" name="submit">Post</button>
+                     </center>
+                     
+                  </form>
+               </div>
+            </div>
+         </div>
+         <!--schedule panel-->
+         </center>
+         <hr >
+         <div id="ext_post">
+         {% for p in post_content %}
+         <div class="col-sm-12" >
+            <div class="row">
+               <div class="col-sm-12 ">
+                  <div class="card hoverable">
+                     <div class="card-image" >
+                        <img src="/media/{{p.post_img}}">
+                     </div>
+                     <div class="card-content">
+                        <span class="indigo-text">
+                           <h4>
+                              {{p.user}}
+                           </h4>
+                        </span>
+                        <h5 align="justify">
+                           {{p.post_msg}}
+                        </h5>
+                        <br>
+                        <div class="row">
+                           <div class="container" >
+                              <!-- <div class="col-sm-4">
+                                 <a id="" class=" waves-effect btn-floating btn-medium waves-light red">
+                                 <i class="large material-icons">
+                                 favorite
+                                 </i>
+                                 </a><span class="indigo-text">
+                                 100
+                                 </span>
+                              </div> -->
+                             
+                              <div class="col-sm-7 left">
+                                 <div class="indigo-text" >
+                                    <i class="tiny material-icons">date_range</i>
+                                    <span style="font-size:20px;"> {{p.post_date}} {{ p.post_time }}</span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        </div>
+           
+         </div>
+      </div>
+   </div>
+   </div>
+   {% endfor %}
+   </div>
+   </div>
+   <!-- 
+      <script type="text/javascript">
+      
+                              // File Upload
+                          //
+                          function ekUpload(){
+                            function Init() {
+      
+                              console.log("Upload Initialised");
+      
+                              var fileSelect    = document.getElementById('file-upload'),
+                              fileDrag      = document.getElementById('file-drag'),
+                              submitButton  = document.getElementById('submit-button');
+      
+                              fileSelect.addEventListener('change', fileSelectHandler, false);
+      
+                              // Is XHR2 available?
+                              var xhr = new XMLHttpRequest();
+                              if (xhr.upload) {
+                                // File Drop
+                                fileDrag.addEventListener('dragover', fileDragHover, false);
+                                fileDrag.addEventListener('dragleave', fileDragHover, false);
+                                fileDrag.addEventListener('drop', fileSelectHandler, false);
+                            }
+                        }
+      
+                        function fileDragHover(e) {
+                          var fileDrag = document.getElementById('file-drag');
+      
+                          e.stopPropagation();
+                          e.preventDefault();
+      
+                          fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+                        }
+      
+                        function fileSelectHandler(e) {
+                              // Fetch FileList object
+                              var files = e.target.files || e.dataTransfer.files;
+      
+                              // Cancel event and hover styling
+                              fileDragHover(e);
+      
+                              // Process all File objects
+                              for (var i = 0, f; f = files[i]; i++) {
+                                parseFile(f);
+                                uploadFile(f);
+                              }
+                          }
+      
+                            // Output
+                            function output(msg) {
+                              // Response
+                              var m = document.getElementById('messages');
+                              m.innerHTML = msg;
+                          }
+      
+                          function parseFile(file) {
+      
+                            console.log(file.name);
+                            output(
+                              '<strong>' + encodeURI(file.name) + '</strong>'
+                              );
+      
+                              // var fileType = file.type;
+                              // console.log(fileType);
+                              var imageName = file.name;
+      
+                              var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+                              if (isGood) {
+                                document.getElementById('start').classList.add("hidden");
+                                document.getElementById('response').classList.remove("hidden");
+                                document.getElementById('notimage').classList.add("hidden");
+                                // Thumbnail Preview
+                                document.getElementById('file-image').classList.remove("hidden");
+                                document.getElementById('file-image').src = URL.createObjectURL(file);
+                            }
+                            else {
+                              document.getElementById('file-image').classList.add("hidden");
+                              document.getElementById('notimage').classList.remove("hidden");
+                              document.getElementById('start').classList.remove("hidden");
+                              document.getElementById('response').classList.add("hidden");
+                              document.getElementById("file-upload-form").reset();
+                            }
+                        }
+      
+                        function setProgressMaxValue(e) {
+                          var pBar = document.getElementById('file-progress');
+      
+                          if (e.lengthComputable) {
+                            pBar.max = e.total;
+                          }
+                        }
+      
+                        function updateFileProgress(e) {
+                          var pBar = document.getElementById('file-progress');
+      
+                          if (e.lengthComputable) {
+                            pBar.value = e.loaded;
+                          }
+                        }
+      
+                        function uploadFile(file) {
+      
+                          var xhr = new XMLHttpRequest(),
+                          fileInput = document.getElementById('class-roster-file'),
+                          pBar = document.getElementById('file-progress'),
+                                fileSizeLimit = 1024; // In MB
+                                if (xhr.upload) {
+                                // Check if file is less than x MB
+                                if (file.size <= fileSizeLimit * 1024 * 1024) {
+                                  // Progress bar
+                                  pBar.style.display = 'inline';
+                                  xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+                                  xhr.upload.addEventListener('progress', updateFileProgress, false);
+      
+                                  // File received / failed
+                                  xhr.onreadystatechange = function(e) {
+                                    if (xhr.readyState == 4) {
+                                      // Everything is good!
+      
+                                      // progress.className = (xhr.status == 200 ? "success" : "failure");
+                                      // document.location.reload(true);
+                                  }
+                              };
+      
+                                  // Start upload
+                                  xhr.open('POST', document.getElementById('file-upload-form').action, true);
+                                  xhr.setRequestHeader('X-File-Name', file.name);
+                                  xhr.setRequestHeader('X-File-Size', file.size);
+                                  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                                  xhr.send(file);
+                              } else {
+                                output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+                              }
+                          }
+                      }
+      
+                            // Check for the various File API support.
+                            if (window.File && window.FileList && window.FileReader) {
+                              Init();
+                            } else {
+                              document.getElementById('file-drag').style.display = 'none';
+                            }
+                        }
+                        ekUpload();
+      
+      
+                    </script>
+                    <script type="text/javascript">
+      
+                              // File Upload
+                          //
+                          function ekUpload(){
+                            function Init() {
+      
+                              console.log("Upload Initialised");
+      
+                              var fileSelect    = document.getElementById('file-upload-1'),
+                              fileDrag      = document.getElementById('file-drag-1'),
+                              submitButton  = document.getElementById('submit-button');
+      
+                              fileSelect.addEventListener('change', fileSelectHandler, false);
+      
+                              // Is XHR2 available?
+                              var xhr = new XMLHttpRequest();
+                              if (xhr.upload) {
+                                // File Drop
+                                fileDrag.addEventListener('dragover', fileDragHover, false);
+                                fileDrag.addEventListener('dragleave', fileDragHover, false);
+                                fileDrag.addEventListener('drop', fileSelectHandler, false);
+                            }
+                        }
+      
+                        function fileDragHover(e) {
+                          var fileDrag = document.getElementById('file-drag-1');
+      
+                          e.stopPropagation();
+                          e.preventDefault();
+      
+                          fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+                        }
+      
+                        function fileSelectHandler(e) {
+                              // Fetch FileList object
+                              var files = e.target.files || e.dataTransfer.files;
+      
+                              // Cancel event and hover styling
+                              fileDragHover(e);
+      
+                              // Process all File objects
+                              for (var i = 0, f; f = files[i]; i++) {
+                                parseFile(f);
+                                uploadFile(f);
+                              }
+                          }
+      
+                            // Output
+                            function output(msg) {
+                              // Response
+                              var m = document.getElementById('messages-1');
+                              m.innerHTML = msg;
+                          }
+      
+                          function parseFile(file) {
+      
+                            console.log(file.name);
+                            output(
+                              '<strong>' + encodeURI(file.name) + '</strong>'
+                              );
+      
+                              // var fileType = file.type;
+                              // console.log(fileType);
+                              var imageName = file.name;
+      
+                              var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+                              if (isGood) {
+                                document.getElementById('start-1').classList.add("hidden");
+                                document.getElementById('response-1').classList.remove("hidden");
+                                document.getElementById('notimage-1').classList.add("hidden");
+                                // Thumbnail Preview
+                                document.getElementById('file-image-1').classList.remove("hidden");
+                                document.getElementById('file-image-1').src = URL.createObjectURL(file);
+                            }
+                            else {
+                              document.getElementById('file-image-1').classList.add("hidden");
+                              document.getElementById('notimage-1').classList.remove("hidden");
+                              document.getElementById('start-1').classList.remove("hidden");
+                              document.getElementById('response-1').classList.add("hidden");
+                              document.getElementById("file-upload-form-1").reset();
+                            }
+                        }
+      
+                        function uploadFile(file) {
+      
+                          var xhr = new XMLHttpRequest(),
+                          fileInput = document.getElementById('class-roster-file'),
+                          pBar = document.getElementById('file-progress'),
+                                fileSizeLimit = 1024; // In MB
+                                if (xhr.upload) {
+                                // Check if file is less than x MB
+                                if (file.size <= fileSizeLimit * 1024 * 1024) {
+                                  // Progress bar
+                                  pBar.style.display = 'inline';
+                                  xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+                                  xhr.upload.addEventListener('progress', updateFileProgress, false);
+      
+                                  // File received / failed
+                                  xhr.onreadystatechange = function(e) {
+                                    if (xhr.readyState == 4) {
+                                      // Everything is good!
+      
+                                      // progress.className = (xhr.status == 200 ? "success" : "failure");
+                                      // document.location.reload(true);
+                                  }
+                              };
+      
+                                  // Start upload
+                                  xhr.open('POST', document.getElementById('file-upload-form-1').action, true);
+                                  xhr.setRequestHeader('X-File-Name', file.name);
+                                  xhr.setRequestHeader('X-File-Size', file.size);
+                                  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                                  xhr.send(file);
+                              } else {
+                                output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+                              }
+                          }
+                      }
+      
+                            // Check for the various File API support.
+                            if (window.File && window.FileList && window.FileReader) {
+                              Init();
+                            } else {
+                              document.getElementById('file-drag-1').style.display = 'none';
+                            }
+                        }
+                        ekUpload();
+      
+      
+                    </script> -->
+   <!--<script type="text/javascript">-->
+   <!--setTimeout(() => {-->
+   <!--var input = $('.datepicker').pickadate();-->
+   <!--var picker = input.pickadate('picker');-->
+   <!--picker.on('open', function() {-->
+   <!--console.log('Opened.. and here I am!');-->
+   <!--})-->
+   <!--$('button').on('click', function(event) {-->
+   <!--event.stopPropagation();-->
+   <!--picker.open();-->
+   <!--});-->
+   <!--$('.timepicker').pickatime({-->
+   <!--twelvehour: false,-->
+   <!--donetext: 'Done',-->
+   <!--beforeShow: function() {-->
+   <!--activeElement = $(document.activeElement)-->
+   <!--activeForm = activeElement.closest('form')[0]-->
+   <!--// Remove existing validation errors-->
+   <!--activeForm.ClientSideValidations.removeError(activeElement)-->
+   <!--// Prevent a validation error occurring when element un-focusses-->
+   <!--activeElement.disableClientSideValidations();-->
+   <!--},-->
+   <!--afterDone: function() {-->
+   <!--activeElement = $(document.activeElement)-->
+   <!--$(activeElement).enableClientSideValidations();-->
+   <!--}-->
+   <!--});-->
+   <!--}, 1000);-->
+   <!--</script>-->
+   <!-- 
+      //           $('.datepicker').pickadate({
+      //   container: 'body'
+      // })
+      // Or with jQuery
+      
+      //   $(document).ready(function(){
+      //    $('.datepicker').datepicker();
+      //    $('.datepicker').pickadate({
+      //      formate :"yyyy-mm-dd",
+      //     selectMonths: true, // Creates a dropdown to control month
+      //     selectYears: 20,//Creates a dropdown of 15 years to control year,
+      //     today: 'Today',
+      //     clear: 'Clear',
+      //     close: 'Ok',
+      //     closeOnSelect: false,// Close upon selecting a date,
+      //     container: 'body', // ex. 'body' will append picker to body
+      // });
+      //   });
+      // $(document).ready(function(){
+      //   $('.datepicker').datepicker();
+      // });
+      
+      -->
+      <script>
+                        //           $('.datepicker').pickadate({
+                        //   container: 'body'
+                        // })
+                          // Or with jQuery
+                        
+                          $(document).ready(function(){
+                          
+                            $('.timepicker').timepicker();
+                        
+                          $('.datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' });
+                          $('.datepicker').pickadate({
+                            formate:"yyyy-mm-dd",
+                            selectMonths: true, // Creates a dropdown to control month
+                            selectYears: 30,//Creates a dropdown of 15 years to control year,
+                            today: 'Today',
+                            clear: 'Clear',
+                            close: 'Ok',
+                            closeOnSelect: false,// Close upon selecting a date,
+                            container: 'body', // ex. 'body' will append picker to body
+                          });
+                        });
+                          // $(document).ready(function(){
+                          //   $('.datepicker').datepicker();
+                          // });
+                        
+                        
+                     </script>
+</main>
+{% endblock %}

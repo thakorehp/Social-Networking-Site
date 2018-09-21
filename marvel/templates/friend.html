@@ -1,0 +1,251 @@
+{% extends 'base_all.html' %}
+{% block title %}Friends {% endblock %}
+{% block head %}
+<style>
+body
+{
+	background-color: #c2d6d6;
+	font-size: 20px;
+	font-family: "Sans", sans-serif;
+
+}
+
+.ze-profile img.ze-image-lg
+{
+	z-index: 0;
+	height: 400px;
+	margin-bottom: 20px;
+
+}
+
+.ze-image-profile
+{
+
+	margin: -40px 0px 10px 60px;
+	z-index: 9;
+	width: 100px;
+	height: 100px;
+}
+
+@media (max-width: 100px)
+{
+	.ze-profile-text>h2,h3{font-weight: 200; font-size: 16px;}
+
+	.ze-image-profile{margin: -45px 10px 0px 25px; z-index: 9 ; width: 20%}
+
+}
+
+</style>
+{% endblock %}
+{% block body %}
+{% load staticfiles %}
+<main>
+    <div class="container" >
+        <div class="row">
+        <h2 class="indigo-text center">
+            Find your friends here.....
+        </h2>
+        </div>
+        <div class="row">
+            <br>
+            <div class="card col-sm-4 "  >
+                <div class="card-content">
+                    <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                    <div class="row center" >
+                        <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:150px;width:150px;">
+
+                    </div>
+
+                    <div class=" center">
+                             <span>Raj Sagar</span>
+
+                    </div>
+                    </a>
+                </div>
+                <div class="card-action ">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <h5><strong>155</strong>&nbsp;Posts</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;friends</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;Photos</h5>
+                        </div>
+                    </div>
+                    <div class="row center" >
+
+                            <input type="button" onclick="return change(this);" class="btn indigo" value="Add Friend">
+
+                            </input>
+                            <script type="text/javascript">
+
+function change( el )
+{
+    if ( el.value === "Unfriend" )
+        el.value = "Add Friend";
+    else
+        el.value = "Unfriend";
+}
+
+                            </script>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card col-sm-4 "  >
+                <div class="card-content">
+                    <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                    <div class="row center" >
+                        <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:150px;width:150px;">
+
+                    </div>
+
+                    <div class=" center">
+                             <span>Raj Sagar</span>
+
+                    </div>
+                    </a>
+                </div>
+                <div class="card-action ">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <h5><strong>155</strong>&nbsp;Posts</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;friends</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;Photos</h5>
+                        </div>
+                    </div>
+                    <div class="row center" >
+
+                            <input type="button" onclick="return change(this);" class="btn indigo" value="Add Friend">
+
+                            </input>
+                            <script type="text/javascript">
+
+function change( el )
+{
+    if ( el.value === "Unfriend" )
+        el.value = "Add Friend";
+    else
+        el.value = "Unfriend";
+}
+
+                            </script>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card col-sm-4 "  >
+                <div class="card-content">
+                    <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                    <div class="row center" >
+                        <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:150px;width:150px;">
+
+                    </div>
+
+                    <div class=" center">
+                             <span>Raj Sagar</span>
+
+                    </div>
+                    </a>
+                </div>
+                <div class="card-action ">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <h5><strong>155</strong>&nbsp;Posts</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;friends</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;Photos</h5>
+                        </div>
+                    </div>
+                    <div class="row center" >
+
+                            <input type="button" onclick="return change(this);" class="btn indigo" value="Add Friend">
+
+                            </input>
+                            <script type="text/javascript">
+
+function change( el )
+{
+    if ( el.value === "Unfriend" )
+        el.value = "Add Friend";
+    else
+        el.value = "Unfriend";
+}
+
+                            </script>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card col-sm-4 "  >
+                <div class="card-content">
+                    <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                    <div class="row center" >
+                        <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:150px;width:150px;">
+
+                    </div>
+
+                    <div class=" center">
+                             <span>Raj Sagar</span>
+
+                    </div>
+                    </a>
+                </div>
+                <div class="card-action ">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <h5><strong>155</strong>&nbsp;Posts</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;friends</h5>
+                        </div>
+                         <div class="col-sm-4" >
+                             <h5><strong>155</strong>&nbsp;Photos</h5>
+                        </div>
+                    </div>
+                    <div class="row center" >
+
+                            <input type="button" onclick="return change(this);" class="btn indigo" value="Add Friend">
+
+                            </input>
+                            <script type="text/javascript">
+
+function change( el )
+{
+    if ( el.value === "Unfriend" )
+        el.value = "Add Friend";
+    else
+        el.value = "Unfriend";
+}
+
+                            </script>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

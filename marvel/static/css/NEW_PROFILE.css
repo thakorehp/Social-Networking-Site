@@ -1,0 +1,32 @@
+body
+{
+	background-color: #c2d6d6;
+	font-size: 20px;
+	font-family: "Sans", sans-serif;
+
+}
+
+.ze-profile img.ze-image-lg
+{
+	z-index: 0;	
+	height: 400px;
+	margin-bottom: 20px;
+
+}
+
+.ze-image-profile
+{
+	
+	margin: -40px 0px 10px 60px;
+	z-index: 9;
+	width: 100px;
+	height: 100px;
+}
+
+@media (max-width: 100px)
+{
+	.ze-profile-text>h2,h3{font-weight: 200; font-size: 16px;}
+
+	.ze-image-profile{margin: -45px 10px 0px 25px; z-index: 9 ; width: 20%}
+
+}

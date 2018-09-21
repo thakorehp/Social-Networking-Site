@@ -1,0 +1,513 @@
+{% extends 'base_all.html' %}
+{% block title %}Profile {% endblock %}
+{% block head %}
+<style>
+        .ze-profile img.ze-image-lg {
+    z-index: 0;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.ze-image-profile {
+    margin: -50px 0px 20px 130px;
+    z-index: 9;
+    width: 100px;
+    height: 100px;
+}
+
+  img{
+          height: 334px;
+    }
+
+
+@media (max-width: 100px) {
+    .ze-profile-text>h2,
+    h3 {
+        font-weight: 200;
+        font-size: 16px;
+    }
+    .ze-image-profile {
+        margin: -45px 10px 0px 25px;
+        z-index: 9;
+        width: 20%
+    }
+}
+
+.navbar-inverse {
+    background-color: #299ef2;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.form-control {
+    box-shadow: 0 8px 6px -6px #999;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+main {
+    padding-top: 20px;
+    padding-bottom: 300px;
+    .details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 50px;
+        h3 {
+            color: #212121;
+            font-size: 28px;
+            margin-top: 15px;
+        }
+        p {
+            color: #727272;
+            margin-top: 0px;
+        }
+    }
+    .bio {
+        margin-bottom: 80px;
+        .title {
+            h6 {
+                color: #212121;
+                font-size: 18px;
+            }
+        }
+        .content {
+            p {
+                color: #727272;
+            }
+        }
+    }
+    .pics {
+        margin-bottom: 50px;
+        .title {
+            margin-bottom: 20px;
+            h6 {
+                color: #212121;
+                font-size: 18px;
+            }
+        }
+        .row-1 {
+            .s12:nth-of-type(2) {
+                margin-bottom: -10px;
+            }
+        }
+        .row {
+            .s12:nth-of-type(1) {
+                margin-bottom: 10px;
+            }
+            .col {
+                .card {
+                    height: 260px;
+                    #first-img {
+                        height: 100%;
+                        background: url(http://www.wallpapers.rs/wallpapers/leonardo_dicaprio_in_movie_scene-1920x1200.jpg) center center;
+                        background-size: cover;
+                    }
+                    #second-img {
+                        height: 100%;
+                        background: url(http://tremendouswallpapers.com/wp-content/uploads/2014/12/django-calvin-candie-leonardo-dicaprio-gives-the-hammer-in-movie-274680.jpg) center center;
+                        background-size: cover;
+                    }
+                    #third-img {
+                        height: 100%;
+                        background: url(http://cdn.collider.com/wp-content/uploads/leonardo-dicaprio-wolf-of-wall-street.jpg) center center;
+                        background-size: cover;
+                    }
+                    #forth-img {
+                        height: 100%;
+                        background: url(http://www.aceshowbiz.com/images/still/the-great-gatsby-still09.jpg) center center;
+                        background-size: cover;
+                    }
+                }
+            }
+        }
+    }
+    img{
+          height: 334px;
+}
+    .posts {
+        margin-bottom: 50px;
+        .title {
+            h6 {
+                color: #212121;
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+        }
+        .row {
+            margin-bottom: 0px;
+            .col {
+                .card {
+                    position: relative;
+                    .card-action {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .tags {
+                            display: flex;
+                            .chip:first-child {
+                                margin-right: 5px;
+                            }
+                        }
+                        .card-love {
+                            cursor: pointer;
+                            font-size: 25px;
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+                            color: white;
+                            transition: all 100ms ease-in-out;
+                            &:hover {
+                                color: #f9a825;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .blogs {
+        margin-bottom: 80px;
+        .title {
+            margin-bottom: 20px;
+            h6 {
+                color: #212121;
+                font-size: 18px;
+            }
+        }
+    }
+    .likes {
+        .title {
+            margin-bottom: 20px;
+            h6 {
+                color: #212121;
+                font-size: 18px;
+            }
+        }
+        .row {
+            .col {
+                .tabs {
+                    margin-bottom: 10px;
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+                }
+            }
+        }
+    }
+    .stretch {
+        height: 500px;
+    }
+}
+
+
+}
+@media screen and (max-width: 600px) {
+    main {
+        padding-top: 40px;
+    }
+    
+    .jumbo {
+        height: 200px !important;
+    }
+    
+    .icons {
+        justify-content: center !important;
+    }
+    
+    .rate {
+        display: none !important;
+    }
+    
+    .add {
+        display: none !important;
+    }
+    
+    @media screen and (min-width: 600px) {
+        .fab {
+            display: none;
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+        }
+        footer {
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+        }
+    
+</style>
+{% endblock %}
+{% block body %}
+{% load staticfiles %}
+<main>
+   <br><br>
+   <div class="container">
+         <div class="row m-b-r m-t-3">
+            <div class="col-sm-3"></div>
+            {% for u in user_info %}
+            <div class="col-sm-3 offset-md-1">
+               <img src="/media/{{u.user_profile}}" style="height:300px;width:300px;" alt="" class="img-circle img-fluid">
+            </div>
+            <div class="col-sm-4 p-t-2">
+<br>
+               <h3 class="h2-responsive indigo-text text-capitalize">@ <span>{{request.user.first_name}} {{request.user.last_name}}</span>
+               </h3>
+               <br>
+               <ul class="flex-menu" style="font-size:20px;">
+                  <li class="col-sm-8" >
+                     <div class="col-sm-2 pull-left red-text" >
+                        <i class="small material-icons">mail</i>
+                     </div>
+                     <div class="col-sm-7 blue-text" >
+                        {{request.user.email}}
+                     </div>
+                  </li>
+                  <li class="col-sm-8" >
+                     <div class="col-sm-2 pull-left red-text" >
+                        <i class="small material-icons">date_range</i>
+                     </div>
+                     <div class="col-sm-8 blue-text" >
+                        {{u.Birthdate}}
+                     </div>
+                  </li>
+                  {% if request.user.is_active == True %}
+                  <li class="col-sm-8" >
+                     <div class="col-sm-2 pull-left red-text" >
+                        <i class="small material-icons">mail</i>
+                     </div>
+                     <div class="col-sm-8 blue-text" >
+                        E-mail verified
+                     </div>
+                  </li>
+                  {% else %}
+                  <li class="col-sm-8" >
+                     <div class="col-sm-2 pull-left red-text" >
+                        <i class="small material-icons">mail</i>
+                     </div>
+                     <div class="col-sm-8 blue-text" >
+                        E-mail verification Pending
+                     </div>
+                  </li>
+                  {% endif %}
+                 <!--  <li class="col-sm-6 center" >
+                     <input type="button" onclick="return change(this);" class="btn  indigo" value="Follow">
+
+                     </input>
+                     <script type="text/javascript">
+                        function change( el )
+                        {
+                            if ( el.value === "Unfollow" )
+                                el.value = "Follow";
+                            else
+                                el.value = "Unfollow";
+                        }
+                        
+                                                    
+                     </script> -->
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="container bio">
+         <div class="title">
+            <h5 class="indigo-text">
+               Biography</h5>
+         </div>
+         <div class="content">
+            <h5 class="black-text" align="justify">
+                {{u.about}}
+            </h5>
+         </div>
+         <hr />
+      </div>
+      {% endfor %}
+      <div class="container likes">
+         <div class="title">
+            <h5 class="indigo-text">Activities</h5>
+         </div>
+         <div class="row">
+            <div class="col s12">
+               <ul class="tabs" style="overflow:hidden;">
+                  <!--<li class="tab col s3"><a class="active"  href="#test1">All</a></li>-->
+                  <li class="tab col s6">
+                     <a  href="#friend">
+                        <h5>Followers</h5>
+                     </a>
+                  </li>
+
+                  <li class="tab col s6">
+                     <a class="active" href="#pics">
+                        <h5>Pictures</h5>
+                     </a>
+                  </li>
+                  
+                  <!-- <li class="tab col s4">
+                     <a  href="#posts">
+                        <h5>Posts</h5>
+                     </a>
+                  </li> -->
+               </ul>
+            </div>
+            <!--friends-->
+            <div id="friend" class="col s12">
+               <br>
+               {% if friends %}       
+               <div class="row">
+               {% for friend in friends %}
+                   <div class="card col-sm-4 "  >
+                     <div class="card-content">
+                        <a class="" href="/marvel/fprofile/{{ friend.username }}/" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+                           <div class="row center" >
+                              <i class="material-icons" aria-hidden="true" style="height:150px;width:150px;font-size: 121px;">group</i>
+                           </div>
+                           <div class=" center">
+                              <span style="text-transform: capitalize;">{{ friend.username }}</span>
+                           </div>
+                        </a>
+                     </div>
+                     <div class="card-action ">
+                        <div class="row">
+                           <a href="/connect/remove/{{friend.id}}/">
+            <button type="button" class="btn btn-default">Remove Friend</button>
+            </a>
+                        </div>
+                     </div>
+                  </div>                
+                  {% endfor %}
+              {% else %}
+                  
+                        <h4> NO Friend yet</h4>
+          
+              {% endif %}
+                    
+                  </div>
+           
+            
+            <!--pictures-->
+            <div id="pics" class="col s12">
+               
+               {% if post %}
+               <div class="row">
+               {% for p in post %}
+               
+                  <div class="col-sm-6">
+                     <div class="card shadow">
+                        <div class="card-image" >
+                           <img src="/media/{{ p.post_img }}">
+                           <span class="card-title">
+                            {{p.user}}
+                           </span>
+                        </div>
+                        <div class="card-action"  style="height:50px;color:red;">
+                           <div class="row center"   >
+                                <div class="col-sm-4">
+                                    <div class="indigo-text" >
+                                        <i class="tiny material-icons">date_range</i>
+                                        <span style="font-size:20px;">{{ p.post_date }} {{p.post_time}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br><br>
+                     </div>
+                  </div>
+                
+                  {% endfor %}
+                  </div>
+                {% else %}
+                    
+                        <h4> NO Post Yet</h4>
+                   
+                   {% endif %}
+
+                  
+              
+</div>
+               </div>
+</div>
+            </div>
+         
+  </div>
+   </div>
+</main>
+<script type="text/javascript">
+//   $(document).mouseup(function(){
+//     $("#user_list").hide();
+// });
+</script>
+<script type="text/javascript">
+{% if m %}
+  alert("{{m}}")
+{% endif %}
+    $("#input_u").keydown(function () {
+      var username = $(this).val();
+      var user = $('#user_list');
+      console.log(username);
+      $.ajax({
+        url: '/ajax/validate_username/',
+        data: {'username': username},
+        dataType: 'json',
+        success: function (json) {
+          if(json.n_n=="True"){
+                                          
+                                    }
+                                    else{
+                                    console.log('hey');
+                                    var jsi = JSON.parse(json.n_n);
+                                    console.log(json.co);
+                                    
+                                    for (var i = 0; i < jsi.length; i++) {
+
+                                        console.log(jsi[i]['fields']['username']);
+            
+                                        // var b = "<a href='/marvel/connect/add/'"+jsi[i]['fields']d +">"+jsi[i]['fields']['username']+"</a>";
+                                        var b = "<div class='alert alert-success' style='color:black;'role='alert'><a href='/marvel/fprofile/"+jsi[i]['fields']['username']+"/' style='color:black;'>"+jsi[i]['fields']['first_name'] + " " +jsi[i]['fields']['last_name']+"</a></div>"
+                                        console.log(b);
+                                            user.prepend(b);
+                                    }
+                                  }
+
+                                }
+                            });
+
+                          });
+
+
+
+    // $("#input_u").change(function () {
+    //   var username = $(this).val();
+
+    //   $.ajax({
+    //     url: '/ajax/validate_username/',
+    //     data: {
+    //       'username': username
+    //     },
+    //     dataType: 'json',
+    //     success: function (data) {
+    //       if (data.is_taken) {
+    //         $('#user_list').append(data.is_taken)
+    //       }
+    //     }
+    //   });
+
+    // });
+  
+</script>
+
+<!-- </head>
+<body>
+    <div class="search-box">
+        <input type="text" autocomplete="off" placeholder="Search country..." />
+        <div class="result"></div>
+    </div>
+</body>
+</html> -->
+
+   
+  
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	{% load static%}
+	<title>Chatmash | Home</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="text/css" href="logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+        <script type="text/javascript" href="../static/js/bootstrap.js"></script>
+	<script type="text/javascript" href="../static/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<style>
+		.navbar-inverse{background-color:#299ef2;}
+		.form-control{
+			box-shadow: 0 8px 6px -6px #999;
+		}
+		a:hover{text-decoration:none;}
+
+  body{font-family: 'Raleway', sans-serif;}
+	</style>
+</head>
+<body style="background-color:white">
+
+	 <nav class="indigo">
+     <div class="container">
+    <div class="nav-wrapper">
+      <a href="{% url 'marvel:index' %}" class="brand-logo" data-toggle="tooltip" title="Home" >
+             Ch@tmash
+      </a>
+      <a href="{% url 'marvel:index' %}" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="{% url 'marvel:index' %}" class="pull-right" data-toggle="tooltip" title="Info" >
+            <i class="material-icons">info</i>
+      </a>
+    </div>
+     </div>
+  </nav>
+
+
+	{%block body%}
+{%endblock%}
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	{% load static %}
+	<link rel="icon" href="{% static 'logo.png' %}" />
+  <link rel="shortcut icon" href="{%  static 'logo.png' %}" />
+  <title>Chatmash | {% block title %}{% endblock %}</title>
+
+  
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}"> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+  <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-ui/jquery-ui.js' %}"></script>
+
+   <!-- 
+  
+ <script type="text/javascript" src="{% static 'lib/picker_date.js' %}"></script> <script type="text/javascript" src="{% static 'lib/picker.js' %}"></script> -->
+  <script type="text/javascript" src="{% static 'lib/legacy.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/picker.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/picker_date.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/picker.time.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+            
+	<!-- <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script> -->
+  
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %} "></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+    <style type="text/css">
+      .picker{
+        display: none !important;
+      }
+      #data_root{
+        display: none !important;
+      }
+      .modal{
+        height: 349px;
+          border-radius: 7px;
+      }
+    </style>
+</head>
+<body style="background-color: white;font-family: 'Raleway', sans-serif;">
+<div class="navbar-fixed">
+	 <nav class="indigo" >
+      <div class="container">
+    <div class="nav-wrapper" >
+      <a href="{% url 'marvel:index' %}" data-position="bottom" data-toggle="tooltip" title="Home.." class="brand-logo tooltipped">
+          <i class="large material-icons">home</i> |
+          Ch@tmash
+      </a>
+      <!-- <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> -->
+            <ul class="right hide-on-med-and-down">
+
+          <li>
+                     <div class="">
+
+                  <input type="text" style="font-size:20px;color:white;" placeholder="Search here..." required="" id="input_u">
+
+                    </div>
+                    <div id="user_list" style="margin: 0px;width: 301px;border: 1px solid rgb(165, 172,178);
+    background-color: #3f51b5 !important;">
+                      
+                    </div>
+          </li>
+          {% if user.is_authenticated %}
+
+          <li>
+             <div class="col-sm-2"></div>
+          </li>
+          <li><a href="/marvel/timeline/" class="btn-floating green pulse" data-toggle="tooltip" title="Timeline"><i class="material-icons">burst_mode</i></a></li>
+          <li><a href="/chat_f/" class="btn-floating green pulse" data-toggle="tooltip" title="Chats"><i class="material-icons">chat</i></a></li>
+          <li><a href="/marvel/change/" class="btn-floating green pulse" data-toggle="tooltip" title="Edit Password"><i class="material-icons">edit</i></a></li>
+
+          <li><a class="btn-floating red pulse" data-toggle="tooltip" title="Profile" href="/marvel/profile/"><i class="material-icons">account_circle</i></a></li>
+         
+        <li>
+            <a class="btn-floating red" href="/marvel/logout" data-toggle="tooltip" title="Logout" >
+
+                <i class="large material-icons">power_settings_new</i>
+            </a>
+        </li>
+        {% endif %}
+      </ul>
+      
+      
+      <!-- <ul class="side-nav" id="mobile-demo">
+          <li><a href="">LogOut</a></li>
+      </ul> -->
+    </div>
+     </div>
+  </nav>
+    </div>
+         	<div class="fixed-action-btn fab" style="bottom: 45px; right: 24px;">
+    	<a class="btn-floating btn-large hoverable indigo">
+      		<i class="large  material-icons">arrow_drop_up</i>
+		</a>
+    	<ul>
+
+      		<li><a class="btn-floating orange" data-toggle="tooltip" title="Find Friends"><i class="material-icons">group</i></a></li>
+<li><a class="btn-floating green " data-toggle="tooltip" title="Scheduled posts"><i class="material-icons">alarm</i></a></li>
+			<li><a class="btn-floating blue" data-toggle="tooltip" title="Edit Profile"><i class="material-icons">border_color</i></a></li>
+			<li><a class="btn-floating pink" href="{% url 'marvel:timeline' %}" data-toggle="tooltip" title="Timeline"><i class="material-icons">explore</i></a></li>
+
+        </ul>
+  	</div>
+
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script> -->
+	{%block body%}
+{%endblock%}
+
+</body>
+<script type="text/javascript">
+  $("#input_u").keydown(function () {
+      var username = $(this).val();
+      $('#user_list').empty();
+      var user = $('#user_list');
+      console.log(username);
+      $.ajax({
+        url: '/ajax/validate_username/',
+        data: {'username': username},
+        dataType: 'json',
+        success: function (json) {
+          if(json.n_n=="True"){
+                                          
+                                    }
+                                    else{
+                                    console.log('hey');
+                                    var jsi = JSON.parse(json.n_n);
+                                    console.log(json.co);
+                                    
+                                    for (var i = 0; i < jsi.length; i++) {
+
+                                        console.log(jsi[i]['fields']['username']);
+                                        if(jsi[i]['fields']['username'] != ""){
+                                        // var b = "<a href='/marvel/connect/add/'"+jsi[i]['fields']d +">"+jsi[i]['fields']['username']+"</a>";
+                                          var b = "<div class='alert alert-success' style='color:black;'role='alert'><a href='/marvel/fprofile/"+jsi[i]['fields']['username']+"/' style='color:black;'>"+jsi[i]['fields']['first_name']+ " " +jsi[i]['fields']['last_name']+"</a></div>"
+                                          console.log(b);
+                                          user.prepend(b);
+                                        }
+                                    }
+                                  }
+
+                                }
+                            });
+
+                          });
+
+    get_post();
+           // $("div.alert").delay(2000).fadeOut(300);
+                        
+                        var noti="";
+                        var not_div = $('#ext_post');
+                        
+                        function get_post(){
+                        $.ajax({
+                                type: 'GET',
+                                url: '/getpost/',
+                                success: function(json) {
+                                    if(json.post=="True"){
+                                        
+                                    }
+                                    else{
+                                    console.log('hey');
+                                    var jsi = JSON.parse(json.post);
+                                    
+                                    
+                                    for (var i = 0; i < jsi.length; i++) {
+
+                                        
+                                        
+                                        var po= "<div class='col-sm-12' >       <div class='row'>               <div class='col-sm-12 '>                  <div class='card hoverable'>                     <div class='card-image' ><img src='/media/"+jsi[i]['fields']['post_img']+"'>                     </div><div class='card-content'><span class='indigo-text'><h4>"+jsi[i]['fields']['username']+"</h4></span><h5 align='justify'>"+jsi[i]['fields']['post_msg']+"</h5>                        <br>           <div class='row'>                       <div class='container' >                          <!-- <div class='col-sm-4'>                                 <a id=' class=' waves-effect btn-floating btn-medium waves-light red'>                                 <i class='large material-icons'>                                 favorite                                 </i>                                 </a><span class='indigo-text'>                                 100                                 </span>                              </div> -->                                                           <div class='col-sm-7 left'>                                 <div class='indigo-text' >                                    <i class='tiny material-icons'>date_range</i>                                    <span style='font-size:20px;'> "+jsi[i]['fields']['post_date'] + " "+ jsi[i]['fields']['post_time']+"</span>                                 </div>                              </div>                           </div>                        </div>                        </div>                    </div>      </div>   </div>   </div>";
+                                        
+                                            not_div.prepend(po);
+                                    }    
+                                        
+                                    }                     
+                                }
+                            }).done(function(){
+                                setTimeout(function() {
+                                        get_post();
+                                    },10000)
+                            }); }
+
+
+</script>
+</html>

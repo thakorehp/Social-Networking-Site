@@ -1,0 +1,310 @@
+{% extends 'base_all.html' %}
+{% block title %}Edit Profile {% endblock %}
+{% block head %}
+<style>
+   input{
+   font-size:25px;
+   }
+   label{font-size:25px;}
+   .picker{
+   display: none;
+   }
+   .modal{
+   height: 349px;
+   border-radius: 7px;
+   }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+   <div class="container">
+   <div style="height: 21px;width: 100%;">
+</div>
+   {% if form.errors %}
+      {% for field in form %}
+          {% for error in field.errors %}
+              <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                  <strong>{{ field.label }}</strong> {{ error|escape }}
+              </div>
+          {% endfor %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% if forms.non_field_errors %}
+      {% for error in forms.non_field_errors %}
+          <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>{{ error }}</strong>
+          </div>
+      {% endfor %}
+    {% endif %}
+      <h3 class="indigo-text">
+         Edit Profile : -
+         <div class="pull-right"><span>{{ request.user.first_name }} {{ request.user.last_name }}</span> </div>
+      </h3>
+      <hr>
+      <div class="center">
+         <form enctype="multipart/form-data" action="{% url 'marvel:edit' %}" id="file-upload-form" class="uploader" method="post">
+            {% csrf_token %}
+            {% load widget_tweaks %}
+            <!-- <label for="file-upload" id="file-drag">
+               <img id="file-image" style="height:200px;width:200px;" src="#" alt="Preview" class="hidden img-circle">
+               <div id="start">
+                   <i class="material-icons" aria-hidden="true">camera_alt</i>
+                   <br>
+                   <div id="notimage" class="hidden">Please select an image</div>
+                   <span id="file-upload-btn" class="btn btn-primary">Select a Profile Image</span>
+               </div>
+               <div id="response" class="hidden">
+                   <div id="messages"></div>
+               </div>
+               </label> -->
+            <!-- <label for="id_user_profile">User profile:</label></th><td><input id="id_user_profile" name="user_profile" type="file" class="validate" /></td> -->
+            {% for field in form %}
+                {% if field.html_name == "user_profile" %}
+                <div class="file-field input-field">
+      <div class="btn">
+        <span>Select Profile Picture</span>
+        {{field}}
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
+    </div>
+            
+            {% elif field.html_name == "Birthdate" %}
+             <div class="row">
+               <div class="input-field col s12">
+                  {{ field|append_attr:"class:datepicker" }}
+                  {{ field.label_tag }}
+               </div>
+            </div>
+            {% else %}
+                <div class="row">
+               <div class="input-field col s12">
+                         {{ field }}
+                        </div>
+                        </div>
+            {% endif %}
+            <!--<div class='row'>-->
+            <!--<div class='input-field col s12 validate'>-->
+            <!--&lt;!&ndash;<input  style="font-size:15px;" class='validate' type='email' name='username' id='username' />&ndash;&gt;-->
+            <!--{{field}}-->
+            <!--<label style="font-size:15px;" >{{field.label_tag}}</label>-->
+            <!--</div>-->
+            <!--</div>-->
+            {% endfor %}
+            <div class="row">
+               <center>
+                  <button role="button" class="btn green waves-effect" type="submit">Save Changes</button>
+                  <button class="btn red waves-effect" role="button" type="reset">Reset</button>
+               </center>
+            </div>
+         </form>
+      </div>
+      <script type="text/javascript">
+         //     onStart: () => {
+         //   $('.picker').appendTo('body');
+         // }
+      </script>
+      <!--    <script type="text/javascript">
+         // File Upload
+         //
+         function ekUpload(){
+         function Init() {
+         
+         console.log("Upload Initialised");
+         
+         var fileSelect    = document.getElementById('file-upload'),
+             fileDrag      = document.getElementById('file-drag'),
+             submitButton  = document.getElementById('submit-button');
+         
+         fileSelect.addEventListener('change', fileSelectHandler, false);
+         
+         // Is XHR2 available?
+         var xhr = new XMLHttpRequest();
+         if (xhr.upload) {
+           // File Drop
+           fileDrag.addEventListener('dragover', fileDragHover, false);
+           fileDrag.addEventListener('dragleave', fileDragHover, false);
+           fileDrag.addEventListener('drop', fileSelectHandler, false);
+         }
+         }
+         
+         function fileDragHover(e) {
+         var fileDrag = document.getElementById('file-drag');
+         
+         e.stopPropagation();
+         e.preventDefault();
+         
+         fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+         }
+         
+         function fileSelectHandler(e) {
+         // Fetch FileList object
+         var files = e.target.files || e.dataTransfer.files;
+         
+         // Cancel event and hover styling
+         fileDragHover(e);
+         
+         // Process all File objects
+         for (var i = 0, f; f = files[i]; i++) {
+           parseFile(f);
+           uploadFile(f);
+         }
+         }
+         
+         // Output
+         function output(msg) {
+         // Response
+         var m = document.getElementById('messages');
+         m.innerHTML = msg;
+         }
+         
+         function parseFile(file) {
+         
+         console.log(file.name);
+         output(
+           '<strong>' + encodeURI(file.name) + '</strong>'
+         );
+         
+         // var fileType = file.type;
+         // console.log(fileType);
+         var imageName = file.name;
+         
+         var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+         if (isGood) {
+           document.getElementById('start').classList.add("hidden");
+           document.getElementById('response').classList.remove("hidden");
+           document.getElementById('notimage').classList.add("hidden");
+           // Thumbnail Preview
+           document.getElementById('file-image').classList.remove("hidden");
+           document.getElementById('file-image').src = URL.createObjectURL(file);
+         }
+         else {
+           document.getElementById('file-image').classList.add("hidden");
+           document.getElementById('notimage').classList.remove("hidden");
+           document.getElementById('start').classList.remove("hidden");
+           document.getElementById('response').classList.add("hidden");
+           document.getElementById("file-upload-form").reset();
+         }
+         }
+         function uploadFile(file) {
+         
+         var xhr = new XMLHttpRequest(),
+           fileInput = document.getElementById('class-roster-file'),
+           pBar = document.getElementById('file-progress'),
+           fileSizeLimit = 1024; // In MB
+         if (xhr.upload) {
+           // Check if file is less than x MB
+           if (file.size <= fileSizeLimit * 1024 * 1024) {
+             // Progress bar
+             pBar.style.display = 'inline';
+             xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+             xhr.upload.addEventListener('progress', updateFileProgress, false);
+         
+             // File received / failed
+             xhr.onreadystatechange = function(e) {
+               if (xhr.readyState == 4) {
+                 // Everything is good!
+         
+                 // progress.className = (xhr.status == 200 ? "success" : "failure");
+                 // document.location.reload(true);
+               }
+             };
+         
+             // Start upload
+             xhr.open('POST', document.getElementById('file-upload-form').action, true);
+             xhr.setRequestHeader('X-File-Name', file.name);
+             xhr.setRequestHeader('X-File-Size', file.size);
+             xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+             xhr.send(file);
+           } else {
+             output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+           }
+         }
+         }
+         
+         // Check for the various File API support.
+         if (window.File && window.FileList && window.FileReader) {
+         Init();
+         } else {
+         document.getElementById('file-drag').style.display = 'none';
+         }
+         }
+         ekUpload();
+         
+         
+         </script> -->
+      <script>
+         //           $('.datepicker').pickadate({
+         //   container: 'body'
+         // })
+           // Or with jQuery
+          
+           $(document).ready(function(){
+           $('.datepicker').datepicker({yearRange:30,});     
+           $('.datepicker').pickadate({
+            formate :"yyyy-mm-dd",
+            maxDate: new Date(),
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: -30, 
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            minDate:new Date('1969-01-01'),
+            closeOnSelect: false,// Close upon selecting a date,
+            container: 'body', // ex. 'body' will append picker to body
+
+           });
+         });
+           // $(document).ready(function(){
+           //   $('.datepicker').datepicker();
+           // });
+                       
+                 
+      </script>
+      <!-- <script type="text/javascript">
+         function valid(){
+                         setTimeout(() => {
+         var input = $('.datepicker').pickadate();
+         var picker = input.pickadate('picker');
+         picker.on('open', function() {
+         console.log('Opened.. and here I am!');
+         })
+         $('#DOB').on('click', function(event) {
+         event.stopPropagation();
+         picker.open();
+         });
+         $('.timepicker').pickatime({
+         twelvehour: false,
+         donetext: 'Done',
+         beforeShow: function() {
+         activeElement = $(document.activeElement)
+         activeForm = activeElement.closest('form')[0]
+         
+         // Remove existing validation errors
+         activeForm.ClientSideValidations.removeError(activeElement)
+         
+         // Prevent a validation error occurring when element un-focusses
+         activeElement.disableClientSideValidations();
+         },
+         afterDone: function() {
+         activeElement = $(document.activeElement)
+         $(activeElement).enableClientSideValidations();
+         }
+         });
+         }, 1000);}
+                     </script>
+         
+         -->
+   </div>
+   </div>
+</main>
+{% endblock %}

@@ -1,0 +1,272 @@
+{% extends 'base_all.html' %}
+{% block title %}Notifications {% endblock %}
+{% block head %}
+<style>
+        .scroll-box {
+            overflow-y: scroll;
+            height: 150px;
+            padding: 1rem
+        }
+
+</style>
+{% endblock %}
+{% block body %}
+{% load staticfiles %}
+<main>
+    <div class="container">
+    <div class="card hoverable col-sm-6" style="border-right:1px solid #d6d8db;">
+        <div class=" card-content" style="border-bottom:1px solid grey;">
+            <h3  class="card-title"><span>Your Notifications</span></h3>
+        </div>
+        <br>
+        <div class="row" style="padding:15px;">
+        <a href="" onclick="valid()" id="p1" class=" row col-sm-12 " style="border-radius:1rem;background-color:#e8f0ff; padding:5px;">
+
+            <img src="{% static 'img/3.jpg' %}" class="circle" style="height:40px;width:40px;" >
+            <span class="indigo-text"><strong>Raj Sagar</strong></span> posted a post.....
+                              <div style="padding-top:10px;padding-right:4px;" class="pull-right">
+                            <i class="tiny material-icons">date_range</i>
+                            11/22/1222</div>
+        </a>
+        <a href="" onclick="valid()" id="p1" class=" row col-sm-12 " style="border-radius:1rem;background-color:#e8f0ff; padding:5px;">
+
+            <img src="{% static 'img/2.jpg' %}" class="circle" style="height:40px;width:40px;" >
+            <span class="indigo-text"><strong>Thor Asgard</strong></span> sent a message to you...
+                              <div style="padding-top:10px;padding-right:4px;" class="pull-right">
+                            <i class="tiny material-icons">date_range</i>
+                            11/22/1222</div>
+        </a>
+                    <a href="" onclick="valid()" id="p1" class=" row col-sm-12 " style="border-radius:1rem;background-color:#e8f0ff; padding:5px;">
+
+            <img src="{% static 'img/2.jpg' %}" class="circle" style="height:40px;width:40px;" >
+            <span class="indigo-text"><strong>Thor Asgard</strong></span> has <span>birthday</span> today...
+                        <div style="padding-top:10px;padding-right:4px;" class="pull-right">
+                            <i class="tiny material-icons">date_range</i>
+                            11/22/1222</div>
+        </a>
+        <a href="" onclick="valid()" id="p1" class=" row col-sm-12 " style="border-radius:1rem;background-color:#e8f0ff; padding:5px;">
+
+            <img src="{% static 'img/2.jpg' %}" class="circle" style="height:40px;width:40px;" >
+            <span class="indigo-text"><strong>Thor Asgard</strong></span> sent you a friend request...
+                              <div style="padding-right:4px;" class="pull-right">
+
+                                    <button class="waves-effect btn-floating btn-medium waves-light green" >
+                                        <i class="material-icons">check</i>
+
+                                    </button>
+                                  <button class="waves-effect btn-floating btn-medium waves-light red" >
+                                        <i class="material-icons">clear</i>
+
+                                    </button>
+
+                              </div>
+        </a>
+
+            </div>
+    </div>
+        <div class="col-sm-1">
+
+        </div>
+
+        <div class="col-sm-4" style="" >
+                   <!--pending friend request-->
+            <div class="card hoverable" style="width:400px;background-color:#f2f2ff;top:350px; overflow-y:auto; position:fixed;">
+                <div class="card-content ">
+                    <div class="card-title" style="border-bottom:1px solid grey;">
+                        <h4  class="indigo-text">Pending Friend Requests..</h4>
+                    </div>
+
+                    <div class="scroll-box">
+                    <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:40px;width:40px;">
+
+
+
+                            <span style="font-size:19px;">Raj Sagar</span></a>
+                        <div class="pull-right" style=" font-size:25px;" id="div1">
+                            <span id="msg" value=""></span>&nbsp;
+                            <button onclick="right()" id="btn1" class="waves-effect btn-floating btn-small waves-light green" >
+                                        <i class="material-icons">check</i>
+
+                                    </button>
+                                  <button onclick="wrong()" id="btn2" class="waves-effect btn-floating btn-medium waves-light red" >
+                                        <i class="material-icons">clear</i>
+
+                                    </button>
+                        </div>
+                             <script type="text/javascript">
+                                 var btn1 = document.getElementById ('btn1')
+                                 var btn2 = document.getElementById ('btn1')
+                                 var fin = document.getElementById ('div')
+
+                                 function right(){
+                                    fin.value("done")
+                                 }
+
+
+                            </script>
+
+
+
+  </div>
+                                     <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:40px;width:40px;">
+
+
+
+                            <span style="font-size:19px;">Raj Sagar</span></a>
+                        <div class="pull-right" style=" font-size:25px;" id="div1">
+                            <span id="msg" value=""></span>&nbsp;
+                            <button onclick="right()" id="btn1" class="waves-effect btn-floating btn-small waves-light green" >
+                                        <i class="material-icons">check</i>
+
+                                    </button>
+                                  <button onclick="wrong()" id="btn2" class="waves-effect btn-floating btn-medium waves-light red" >
+                                        <i class="material-icons">clear</i>
+
+                                    </button>
+                        </div>
+                             <script type="text/javascript">
+                                 var btn1 = document.getElementById ('btn1')
+                                 var btn2 = document.getElementById ('btn1')
+                                 var fin = document.getElementById ('div')
+
+                                 function right(){
+                                    fin.value("done")
+                                 }
+
+
+                            </script>
+
+
+
+  </div>             <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:40px;width:40px;">
+
+
+
+                            <span style="font-size:19px;">Raj Sagar</span></a>
+                        <div class="pull-right" style=" font-size:25px;" id="div1">
+                            <span id="msg" value=""></span>&nbsp;
+                            <button onclick="right()" id="btn1" class="waves-effect btn-floating btn-small waves-light green" >
+                                        <i class="material-icons">check</i>
+
+                                    </button>
+                                  <button onclick="wrong()" id="btn2" class="waves-effect btn-floating btn-medium waves-light red" >
+                                        <i class="material-icons">clear</i>
+
+                                    </button>
+                        </div>
+                             <script type="text/javascript">
+                                 var btn1 = document.getElementById ('btn1')
+                                 var btn2 = document.getElementById ('btn1')
+                                 var fin = document.getElementById ('div')
+
+                                 function right(){
+                                    fin.value("done")
+                                 }
+
+
+                            </script>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+                    </div>
+                </div>
+                     <div class="card hoverable" style="background-color:#f2f2ff; overflow-y:auto; position:fixed;width:400px;">
+                <div class="card-content ">
+                    <div class="card-title" style="border-bottom:1px solid grey;">
+                        <h4  class="indigo-text">Upcoming events...</h4>
+                    </div>
+
+                    <div class="scroll-box">
+                    <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:30px;width:30px;">
+                                <span style="font-size:14px;">
+                                    <span>Raj Sagar</span>
+                                    has
+                                    <span>birthday</span> on
+                                    <span>11/11/1111</span>
+
+                                </span>
+
+
+
+  </div>
+                    <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:30px;width:30px;">
+                                <span style="font-size:14px;">
+                                    Your <span>birthday</span> is after <span>2</span> days
+
+                                </span>
+
+
+
+  </div>
+                    <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:30px;width:30px;">
+                                <span style="font-size:14px;">
+                                    <span>Raj Sagar</span>
+                                    has
+                                    <span>birthday</span> on
+                                    <span>11/11/1111</span>
+
+                                </span>
+
+
+
+  </div>
+                    <div class="row " >
+                            <a class="" href="{% url 'marvel:profile' %}" style="font-size:25px;color:green;" type="" data-toggle="tooltip" title="View Profile">
+
+                            <img src="{% static 'img/2.jpg' %}" class="img-circle" style="height:30px;width:30px;">
+                                <span style="font-size:14px;">
+                                    <span>Raj Sagar</span>
+                                    has
+                                    <span>Anniversary</span> on
+                                    <span>11/11/1111</span>
+
+                                </span>
+
+
+
+  </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+
+<!--Upcoming Events -->
+
+
+        </div>
+        </div>
+
+</main>
+<script type="text/javascript">
+
+</script>
+{% endblock %}
